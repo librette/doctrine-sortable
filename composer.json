@@ -1,0 +1,18 @@
+{
+	"name": "librette/doctrine-sortable",
+	"require": {
+		"nette/utils": "~2.2",
+		"nette/di": "~2.2",
+		"kdyby/doctrine": "@dev",
+		"kdyby/events": "@dev"
+	},
+	"require-dev": {
+		"nette/tester": "@dev",
+		"tracy/tracy": "@dev"
+	},
+	"autoload": {
+		"psr-4": {
+			"Librette\\Doctrine\\Sortable\\": "src/"
+		}
+	}
+}
