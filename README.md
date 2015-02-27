@@ -69,8 +69,17 @@ There is trait `TSortable` that implements basic sorting methods to your entity.
 Everything you need is to call those methods in your service / presenter.
 
 ```php
+// you can move your entity up or down
 $entity->moveUp();
 $entity->moveDown();
-$entity->moveAfter();
-$entity->moveBefore();
+// or you can put it before / after another one
+$entity->moveBefore($anotherEntity);
+$entity->moveAfter($anotherEntity);
+```
+
+**Don't forget to persist and flush after you finish with sorting!**
+
+```php
+$this->em->persist($entity);
+$this->em->flush();
 ```
