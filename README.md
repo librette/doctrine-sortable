@@ -34,7 +34,7 @@ use Librette\Doctrine\Sortable\TSortable;
 /**
  * @ORM\Entity
  */
-class Article extends BaseEntity implements ISortable
+class Category extends BaseEntity implements ISortable
 {
 	use TSortable;
 	/**
@@ -43,11 +43,6 @@ class Article extends BaseEntity implements ISortable
 	 * @ORM\GeneratedValue
 	 */
 	protected $id;
-
-	/**
-	 * @ORM\Column(type="integer")
-	 */
-	protected $position;
 }
 ```
 
