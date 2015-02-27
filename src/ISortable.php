@@ -7,6 +7,9 @@ namespace Librette\Doctrine\Sortable;
 interface ISortable
 {
 
+	/**
+	 * @return int
+	 */
 	public function getPosition();
 
 }
