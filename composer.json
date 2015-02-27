@@ -1,5 +1,14 @@
 {
 	"name": "librette/doctrine-sortable",
+	"type": "library",
+	"keywords": ["nette", "librette", "doctrine", "sortable"],
+	"license": ["BSD-3-Clause", "GPL-2.0",	"GPL-3.0"],
+	"authors": [
+		{
+			"name": "David Matějka",
+			"homepage": "http://www.matej21.cz"
+		}
+	],
 	"require": {
 		"nette/utils": "~2.2",
 		"nette/di": "~2.2",
