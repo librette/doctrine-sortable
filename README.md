@@ -7,7 +7,7 @@ For example categories, products on main page and so on. And why you should do t
 Installation
 -----------
 
-The best way to install Kdyby/Doctrine is using [Composer](http://getcomposer.org/):
+The best way to install librette/doctrine-sortable is using [Composer](http://getcomposer.org/):
 
 ```sh
 $ composer require librette/doctrine-sortable
@@ -17,7 +17,7 @@ and enable librette extension in your `config.neon
 ````yml
 extensions:
 	# add this line at the end of your extensions list
-	librette.doctrine.sortable: Librette\Doctrine\Sortable\DI;
+	librette.doctrine.sortable: Librette\Doctrine\Sortable\DI\SortableExtension
 ```
 
 Simplest entity
@@ -36,9 +36,7 @@ use Librette\Doctrine\Sortable\TSortable;
  */
 class Article extends BaseEntity implements ISortable
 {
-
 	use TSortable;
-
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
@@ -50,15 +48,6 @@ class Article extends BaseEntity implements ISortable
 	 * @ORM\Column(type="integer")
 	 */
 	protected $position;
-
-	/**
-	 * @return int
-	 */
-	public function getPosition()
-	{
-		return $this->position;
-	}
-
 }
 ```
 
@@ -75,6 +64,8 @@ $entity->moveDown();
 // or you can put it before / after another one
 $entity->moveBefore($anotherEntity);
 $entity->moveAfter($anotherEntity);
+// also you can set position directly
+$entity->setPosition(21);
 ```
 
 **Don't forget to persist and flush after you finish with sorting!**
