@@ -38,6 +38,22 @@ class SortableTestCase extends TestCase
 	}
 
 
+	public function testScope()
+	{
+		$categories = [];
+		for ($i = 1; $i <= 6; $i++) {
+			$categories[$i] = $cat = new Category('Category ' . $i);
+			$cat->setSortableScope(['name']);
+			$this->em->persist($cat);
+		}
+		$this->em->flush();
+		foreach ($categories as $category) {
+			Assert::equal(1, $category->getPosition());
+		}
+
+	}
+
+
 	public function testPersistSetPosition()
 	{
 		$categories = $this->createCategories();
@@ -123,6 +139,7 @@ class SortableTestCase extends TestCase
 		Assert::same(3, $categories[5]->getPosition());
 		Assert::same(2, $categories[6]->getPosition());
 	}
+
 
 	public function testRemove()
 	{
