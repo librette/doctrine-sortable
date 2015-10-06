@@ -37,6 +37,47 @@ class SortableTestCase extends TestCase
 	}
 
 
+	public function testPersistSetPosition()
+	{
+		$categories = $this->createCategories();
+		$categories[] = $cat = new Category('New category');
+		$cat->setPosition(2);
+		$this->em->persist($cat);
+		$this->em->flush();
+		$this->refresh($categories); //todo: update entities without refresh
+		Assert::same(1, $categories[1]->getPosition());
+		Assert::same(3, $categories[2]->getPosition());
+		Assert::same(4, $categories[3]->getPosition());
+		Assert::same(5, $categories[4]->getPosition());
+		Assert::same(6, $categories[5]->getPosition());
+		Assert::same(7, $categories[6]->getPosition());
+		Assert::same(2, $categories[7]->getPosition());
+	}
+
+
+	public function testPersistSetPositionMultiple()
+	{
+		//failing
+		$categories = $this->createCategories();
+		$categories[] = $cat = new Category('New category');
+		$cat->setPosition(2);
+		$categories[] = $cat2 = new Category('New category 2');
+		$cat2->setPosition(3);
+		$this->em->persist($cat);
+		$this->em->persist($cat2);
+		$this->em->flush();
+		$this->refresh($categories); //todo: update entities without refresh
+		Assert::same(1, $categories[1]->getPosition());
+		Assert::same(4, $categories[2]->getPosition());
+		Assert::same(5, $categories[3]->getPosition());
+		Assert::same(6, $categories[4]->getPosition());
+		Assert::same(7, $categories[5]->getPosition());
+		Assert::same(8, $categories[6]->getPosition());
+		Assert::same(2, $categories[7]->getPosition());
+		Assert::same(3, $categories[8]->getPosition());
+	}
+
+
 	public function testMoveUp()
 	{
 		$categories = $this->createCategories();
@@ -66,6 +107,21 @@ class SortableTestCase extends TestCase
 		Assert::same(6, $categories[6]->getPosition());
 	}
 
+
+	public function testMoveMultipleSamePosition()
+	{
+		$categories = $this->createCategories();
+		$categories[5]->setPosition(2);
+		$categories[6]->setPosition(2);
+		$this->em->flush();
+		$this->refresh($categories); //todo: update entities without refresh
+		Assert::same(1, $categories[1]->getPosition());
+		Assert::same(4, $categories[2]->getPosition());
+		Assert::same(5, $categories[3]->getPosition());
+		Assert::same(6, $categories[4]->getPosition());
+		Assert::same(3, $categories[5]->getPosition());
+		Assert::same(2, $categories[6]->getPosition());
+	}
 
 	public function testRemove()
 	{

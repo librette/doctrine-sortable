@@ -20,6 +20,7 @@ class SortableListener extends Object implements Subscriber
 	private $reflCache = [];
 
 
+
 	public function getSubscribedEvents()
 	{
 		return [Events::preUpdate, Events::postPersist, Events::preRemove];
@@ -101,17 +102,31 @@ class SortableListener extends Object implements Subscriber
 		if (!$args->getEntity() instanceof ISortable) {
 			return;
 		}
+		/** @var ISortable $entity */
 		$entity = $args->getEntity();
 		$em = $args->getEntityManager();
-		$pos = $this->getMaxPosition($em, $entity);
-		$rp = $this->getPropReflection($entity);
-		$rp->setValue($entity, $pos);
-		$uow = $em->getUnitOfWork();
+		$maxPos = $this->getMaxPosition($em, $entity);
+
 		$meta = $em->getClassMetadata(get_class($entity));
-		$uow->recomputeSingleEntityChangeSet($meta, $entity);
-		//todo: use extraUpdates
-		$uow->getEntityPersister(get_class($entity))->update($entity);
-		$uow->setOriginalEntityProperty(spl_object_hash($entity), 'position', $pos);
+		if (!$entity->getPosition() || $entity->getPosition() > $maxPos) {
+			$rp = $this->getPropReflection($entity);
+			$rp->setValue($entity, $maxPos);
+			$uow = $em->getUnitOfWork();
+			$uow->recomputeSingleEntityChangeSet($meta, $entity);
+			//todo: use extraUpdates
+			$uow->getEntityPersister(get_class($entity))->update($entity);
+			$uow->setOriginalEntityProperty(spl_object_hash($entity), 'position', $maxPos);
+		} else {
+			$pos = $entity->getPosition();
+			$qb = $this->createBaseQb($args->getEntityManager(), $entity);
+			$qb->update()
+				->andWhere('e.position >= :from')
+				->setParameter('from', $pos)
+				->andWhere('e.id <> :id')
+				->setParameter('id', $entity->id)
+				->set('e.position', 'e.position + 1')
+				->getQuery()->getResult();
+		}
 	}
 
 
