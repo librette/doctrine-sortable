@@ -156,7 +156,9 @@ class SortableListener extends Object implements Subscriber
 	 */
 	private function createBaseQb(EntityManager $em, ISortable $sortable)
 	{
-		$qb = $em->getRepository(get_class($sortable))->createQueryBuilder('e');
+		$meta = $em->getClassMetadata(get_class($sortable));
+
+		$qb = $em->getRepository($meta->rootEntityName)->createQueryBuilder('e');
 		if ($sortable instanceof ISortableScope) {
 			$this->addScope($em, $sortable, $qb);
 		}

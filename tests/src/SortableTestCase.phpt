@@ -3,6 +3,7 @@ namespace LibretteTests\Doctrine\Sortable;
 
 use Kdyby\Doctrine\EntityManager;
 use LibretteTests\Doctrine\Sortable\Model\Category;
+use LibretteTests\Doctrine\Sortable\Model\DescribedCategory;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -135,6 +136,29 @@ class SortableTestCase extends TestCase
 		Assert::same(3, $categories[4]->getPosition());
 		Assert::same(4, $categories[5]->getPosition());
 		Assert::same(5, $categories[6]->getPosition());
+	}
+
+
+	public function testInheritance()
+	{
+		$this->createCategories();
+		$described = new DescribedCategory('Child');
+		$this->em->persist($described);
+		$this->em->flush();
+		$this->refresh([$described]);
+		Assert::same(7, $described->getPosition());
+	}
+
+
+	public function testInheritanceWithScope()
+	{
+		$this->createCategories();
+		$described = new DescribedCategory('Child');
+		$described->setSortableScope(['type']);
+		$this->em->persist($described);
+		$this->em->flush();
+		$this->refresh([$described]);
+		Assert::same(1, $described->getPosition());
 	}
 
 
