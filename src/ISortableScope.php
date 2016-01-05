@@ -4,7 +4,7 @@ namespace Librette\Doctrine\Sortable;
 /**
  * @author David Matejka
  */
-interface ISortableScope
+interface ISortableScope extends ISortable
 {
 
 	/**
