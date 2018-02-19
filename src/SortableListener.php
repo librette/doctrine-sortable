@@ -8,13 +8,14 @@ use Doctrine\ORM\NoResultException;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Doctrine\QueryBuilder;
 use Kdyby\Events\Subscriber;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class SortableListener extends Object implements Subscriber
+class SortableListener implements Subscriber
 {
+    use SmartObject;
 
 	/** @var \ReflectionProperty[] */
 	private $reflCache = [];
