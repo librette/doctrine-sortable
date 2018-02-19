@@ -1,6 +1,7 @@
 {
 	"name": "librette/doctrine-sortable",
 	"type": "library",
+	"description": "Doctrine sortable entities for Nette framework.",
 	"keywords": ["nette", "librette", "doctrine", "sortable"],
 	"license": ["BSD-3-Clause", "GPL-2.0",	"GPL-3.0"],
 	"authors": [
@@ -10,8 +11,8 @@
 		}
 	],
 	"require": {
-		"nette/utils": "~2.2",
-		"nette/di": "~2.2",
+		"nette/utils": "~2.4",
+		"nette/di": "~2.4",
 		"kdyby/doctrine": "@dev",
 		"kdyby/events": "@dev"
 	},
