@@ -1,7 +1,7 @@
 <?php
 namespace LibretteTests\Doctrine\Sortable;
 
-use Kdyby\Doctrine\EntityManager;
+use Doctrine\ORM\EntityManager;
 use LibretteTests\Doctrine\Sortable\Model\Category;
 use LibretteTests\Doctrine\Sortable\Model\DescribedCategory;
 use Tester\Assert;

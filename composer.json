@@ -10,15 +10,22 @@
 			"homepage": "http://www.matej21.cz"
 		}
 	],
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/paveljurasek/events"
+		}
+	],
 	"require": {
-		"nette/utils": "~2.4",
-		"nette/di": "~2.4",
-		"kdyby/doctrine": "@dev",
-		"kdyby/events": "@dev"
+		"php": "^7.1",
+		"nette/utils": "^3.0",
+		"nette/di": "^3.0-RC3",
+		"doctrine/orm": "^2.6",
+		"kdyby/events": "^4.0"
 	},
 	"require-dev": {
-		"nette/tester": "@dev",
-		"tracy/tracy": "@dev"
+		"nette/tester": "^2.2",
+		"tracy/tracy": "^2.6"
 	},
 	"autoload": {
 		"psr-4": {

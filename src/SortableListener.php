@@ -5,8 +5,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\NoResultException;
-use Kdyby\Doctrine\EntityManager;
-use Kdyby\Doctrine\QueryBuilder;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
 use Kdyby\Events\Subscriber;
 use Nette\SmartObject;
 
@@ -124,7 +124,7 @@ class SortableListener implements Subscriber
 				->andWhere('e.position >= :from')
 				->setParameter('from', $pos)
 				->andWhere('e.id <> :id')
-				->setParameter('id', $entity->id)
+				->setParameter('id', $entity->getId())
 				->set('e.position', 'e.position + 1')
 				->getQuery()->getResult();
 		}

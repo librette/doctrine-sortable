@@ -2,15 +2,20 @@
 namespace LibretteTests\Doctrine\Sortable\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
-use Kdyby\Doctrine\Entities\BaseEntity;
 
 /**
  * @ORM\Entity
  */
 class DescribedCategory extends Category
 {
-	use Identifier;
+
+	/**
+	 * @ORM\Id()
+	 * @ORM\GeneratedValue()
+	 * @ORM\Column(type="integer")
+	 * @var int
+	 */
+	protected $id;
 
 	/**
 	 * @var string
