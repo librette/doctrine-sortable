@@ -2,8 +2,6 @@
 namespace LibretteTests\Doctrine\Sortable\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
-use Kdyby\Doctrine\Entities\BaseEntity;
 use Librette\Doctrine\Sortable\ISortable;
 use Librette\Doctrine\Sortable\ISortableScope;
 use Librette\Doctrine\Sortable\TSortable;
@@ -14,12 +12,18 @@ use Librette\Doctrine\Sortable\TSortable;
  * @ORM\DiscriminatorMap({"category": "Category", "described": "DescribedCategory"})
  * @ORM\DiscriminatorColumn(name="type")
  */
-class Category extends BaseEntity implements ISortable, ISortableScope
+class Category implements ISortable, ISortableScope
 {
 
-	use Identifier;
 	use TSortable;
 
+	/**
+	 * @ORM\Id()
+	 * @ORM\GeneratedValue()
+	 * @ORM\Column(type="integer")
+	 * @var int
+	 */
+	protected $id;
 
 	/**
 	 * @var string
@@ -35,6 +39,13 @@ class Category extends BaseEntity implements ISortable, ISortableScope
 		$this->name = $name;
 	}
 
+	/**
+	 * @return int
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
 
 	/**
 	 * @return array
