@@ -18,8 +18,8 @@
 	],
 	"require": {
 		"php": "^7.1",
+		"nette/di": "^3.0",
 		"nette/utils": "^3.0",
-		"nette/di": "^3.0-RC3",
 		"doctrine/orm": "^2.6",
 		"kdyby/events": "^4.0"
 	},
