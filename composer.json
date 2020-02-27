@@ -11,8 +11,8 @@
 		}
 	],
 	"require": {
-		"nette/utils": "~2.4",
-		"nette/di": "~2.4",
+		"nette/utils": "~2.4 || ~3.0",
+		"nette/di": "~2.4 || ~3.0",
 		"kdyby/doctrine": "@dev",
 		"kdyby/events": "@dev"
 	},
