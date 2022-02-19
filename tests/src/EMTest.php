@@ -1,16 +1,11 @@
 <?php
 namespace LibretteTests\Doctrine\Sortable;
 
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\PDOSqlite\Driver;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
-use Kdyby;
 use Librette\Doctrine\Sortable\SortableListener;
-use Nette;
-use Tester;
 
 /**
  * @author David Matejka
@@ -24,11 +19,11 @@ trait EMTest
 			'driver' => 'pdo_sqlite',
 			'memory' => TRUE,
 		];
-		$connection = new Connection($conf, new Driver());
+		$connection = new Connection($conf, new \Doctrine\DBAL\Driver\PDO\SQLite\Driver());
 		$config = new Configuration();
-		$cache = new ArrayCache();
-		$config->setMetadataCacheImpl($cache);
-		$config->setQueryCacheImpl($cache);
+		$cache = new \Symfony\Component\Cache\Adapter\ArrayAdapter();
+		$config->setMetadataCache($cache);
+		$config->setQueryCache($cache);
 		$config->setProxyDir(TEMP_DIR);
 		$config->setProxyNamespace('TestProxy');
 		$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver([__DIR__ . '/Model/', VENDOR_DIR], FALSE));

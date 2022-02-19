@@ -1,19 +1,19 @@
 <?php
 namespace Librette\Doctrine\Sortable;
 
+use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-use Kdyby\Events\Subscriber;
 use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class SortableListener implements Subscriber
+class SortableListener implements EventSubscriber
 {
     use SmartObject;
 

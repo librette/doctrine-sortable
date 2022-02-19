@@ -81,6 +81,7 @@ class SortableTestCase extends TestCase
 		$categories[] = $cat2 = new Category('New category 2');
 		$cat2->setPosition(3);
 		$this->em->persist($cat);
+		$this->em->flush();
 		$this->em->persist($cat2);
 		$this->em->flush();
 		$this->refresh($categories); //todo: update entities without refresh

@@ -1,7 +1,6 @@
 <?php
 namespace Librette\Doctrine\Sortable\DI;
 
-use Kdyby\Events\DI\EventsExtension;
 use Librette\Doctrine\Sortable\SortableListener;
 use Nette\DI\CompilerExtension;
 
@@ -14,9 +13,12 @@ class SortableExtension extends CompilerExtension
 	public function loadConfiguration()
 	{
 		$builder = $this->getContainerBuilder();
-		$builder->addDefinition($this->prefix('sortableListener'))
-			->setType(SortableListener::class)
-			->addTag(EventsExtension::TAG_SUBSCRIBER);
+		$listener = $builder->addDefinition($this->prefix('sortableListener'))
+			->setType(SortableListener::class);
+
+		/** @var \Nette\DI\Definitions\ServiceDefinition $manager */
+		$manager = $builder->getByType(\Doctrine\Common\EventManager::class);
+		$manager->addSetup('addEventSubscriber', [$listener]);
 	}
 
 }
